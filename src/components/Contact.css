@@ -3,14 +3,6 @@
   max-width: 1000px;
   padding: 8rem 2rem 4rem;
   text-align: center;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
-}
-
-.contact-section.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .contact-container {

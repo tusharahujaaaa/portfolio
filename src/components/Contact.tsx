@@ -1,21 +1,35 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import './Contact.css';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Contact = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+  useGSAP(() => {
+    const triggerElem = sectionRef.current?.querySelector('.contact-container');
+    const elements = gsap.utils.toArray('.contact-container h2, .contact-container p, .contact-btn');
+    
+    if (triggerElem && elements.length > 0) {
+      gsap.fromTo(elements, 
+        { autoAlpha: 0, y: 30 },
+        { 
+          autoAlpha: 1, 
+          y: 0, 
+          duration: 0.8, 
+          stagger: 0.15, 
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: triggerElem,
+            start: 'top 85%'
+          }
         }
-      },
-      { threshold: 0.3 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+      );
+    }
+  }, { scope: sectionRef });
 
   return (
     <section ref={sectionRef} className="contact-section" id="contact">

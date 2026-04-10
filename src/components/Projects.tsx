@@ -1,21 +1,46 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import './Projects.css';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+  useGSAP(() => {
+    // 1. Featured Project Reveal
+    const featuredContainer = sectionRef.current?.querySelector(".featured-project-container");
+    if (featuredContainer) {
+      gsap.fromTo(featuredContainer,
+        { autoAlpha: 0, scale: 0.95, y: 30 },
+        { 
+          autoAlpha: 1, scale: 1, y: 0, duration: 1, ease: 'power3.out',
+          scrollTrigger: {
+            trigger: featuredContainer,
+            start: 'top 85%'
+          }
         }
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+      );
+    }
+
+    // 2. Project Grid cards stagger
+    const gridContainer = sectionRef.current?.querySelector(".projects-grid");
+    const cards = gsap.utils.toArray('.project-card');
+    if (gridContainer && cards.length) {
+      gsap.fromTo(cards,
+        { autoAlpha: 0, y: 40 },
+        { 
+          autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out',
+          scrollTrigger: {
+            trigger: gridContainer,
+            start: 'top 85%'
+          }
+        }
+      );
+    }
+  }, { scope: sectionRef });
 
   const enterpriseProjects = [
     { title: "GovIntra", desc: "Internal governance portal scaling up to handle thousands of concurrent operations securely." },

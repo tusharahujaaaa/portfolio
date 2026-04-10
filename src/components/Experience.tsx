@@ -1,21 +1,31 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import './Experience.css';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Experience = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+  useGSAP(() => {
+    const items = gsap.utils.toArray('.timeline-item');
+    gsap.fromTo(items, 
+      { autoAlpha: 0, y: 40 },
+      { 
+        autoAlpha: 1, 
+        y: 0, 
+        duration: 0.8, 
+        stagger: 0.15, 
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
         }
-      },
-      { threshold: 0.1 }
+      }
     );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  }, { scope: sectionRef });
 
   const experiences = [
     {

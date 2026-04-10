@@ -2,14 +2,6 @@
   width: 100%;
   max-width: 1000px;
   padding: 8rem 2rem;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
-}
-
-.experience-section.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .timeline {
