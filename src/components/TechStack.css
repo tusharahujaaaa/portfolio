@@ -1,0 +1,57 @@
+.techstack-section {
+  width: 100%;
+  max-width: 1200px;
+  padding: 8rem 2rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.techstack-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: none;
+}
+
+.tech-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.tech-emoji {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  filter: grayscale(0.5);
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.tech-item:hover .tech-emoji {
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
+.tech-name {
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.tech-item:hover .tech-name {
+  color: #fff;
+}

@@ -1,0 +1,88 @@
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.cursor-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(121, 40, 202, 0.15) 0%, rgba(0, 112, 243, 0.05) 40%, rgba(0,0,0,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+  will-change: transform, left, top;
+}
+
+.cursor-glow.hovering {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(0, 112, 243, 0.3) 0%, rgba(121, 40, 202, 0.1) 50%, rgba(0,0,0,0) 70%);
+}
+
+.background-mesh {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+}
+
+.mesh-blob {
+  position: absolute;
+  filter: blur(100px);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float 25s infinite alternate ease-in-out;
+  will-change: transform;
+}
+
+.blob-1 {
+  width: 60vw;
+  height: 60vh;
+  background: linear-gradient(135deg, rgba(0, 112, 243, 0.15), rgba(121, 40, 202, 0.15));
+  top: -10%;
+  left: -10%;
+}
+
+.blob-2 {
+  width: 50vw;
+  height: 50vh;
+  background: linear-gradient(135deg, rgba(121, 40, 202, 0.15), rgba(0, 112, 243, 0.1));
+  bottom: -10%;
+  right: -10%;
+  animation-delay: -12s;
+}
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+}
+
+.content-layer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(5%, 10%) scale(1.1) rotate(15deg); }
+  100% { transform: translate(-5%, 5%) scale(0.9) rotate(-15deg); }
+}
