@@ -1,52 +1,79 @@
-import React, { useRef } from 'react';
-import './Projects.css';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from "react";
+import "./Projects.css";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useGSAP(() => {
-    // 1. Featured Project Reveal
-    const featuredContainer = sectionRef.current?.querySelector(".featured-project-container");
-    if (featuredContainer) {
-      gsap.fromTo(featuredContainer,
-        { autoAlpha: 0, scale: 0.95, y: 30 },
-        { 
-          autoAlpha: 1, scale: 1, y: 0, duration: 1, ease: 'power3.out',
-          scrollTrigger: {
-            trigger: featuredContainer,
-            start: 'top 85%'
-          }
-        }
+  useGSAP(
+    () => {
+      // 1. Featured Project Reveal
+      const featuredContainer = sectionRef.current?.querySelector(
+        ".featured-project-container",
       );
-    }
+      if (featuredContainer) {
+        gsap.fromTo(
+          featuredContainer,
+          { autoAlpha: 0, scale: 0.95, y: 30 },
+          {
+            autoAlpha: 1,
+            scale: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: featuredContainer,
+              start: "top 85%",
+            },
+          },
+        );
+      }
 
-    // 2. Project Grid cards stagger
-    const gridContainer = sectionRef.current?.querySelector(".projects-grid");
-    const cards = gsap.utils.toArray('.project-card');
-    if (gridContainer && cards.length) {
-      gsap.fromTo(cards,
-        { autoAlpha: 0, y: 40 },
-        { 
-          autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out',
-          scrollTrigger: {
-            trigger: gridContainer,
-            start: 'top 85%'
-          }
-        }
-      );
-    }
-  }, { scope: sectionRef });
+      // 2. Project Grid cards stagger
+      const gridContainer = sectionRef.current?.querySelector(".projects-grid");
+      const cards = gsap.utils.toArray(".project-card");
+      if (gridContainer && cards.length) {
+        gsap.fromTo(
+          cards,
+          { autoAlpha: 0, y: 40 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: gridContainer,
+              start: "top 85%",
+            },
+          },
+        );
+      }
+    },
+    { scope: sectionRef },
+  );
 
   const enterpriseProjects = [
-    { title: "GovIntra", desc: "Internal governance portal scaling up to handle thousands of concurrent operations securely." },
-    { title: "CCL System", desc: "Complex logistics and clearings system built with heavy full-stack optimizations." },
-    { title: "Billing Tracker", desc: "Financial ledger capable of precise arithmetic and high-level data aggregation." },
-    { title: "Digicel SelfCare", desc: "Telecom customer portal serving vast amounts of users with low latency." }
+    {
+      title: "GovIntra",
+      desc: "Internal governance portal scaling up to handle thousands of concurrent operations securely.",
+    },
+    {
+      title: "CCL System",
+      desc: "Complex logistics and clearings system built with heavy full-stack optimizations.",
+    },
+    {
+      title: "Billing Tracker",
+      desc: "Financial ledger capable of precise arithmetic and high-level data aggregation.",
+    },
+    {
+      title: "Digicel SelfCare",
+      desc: "Telecom customer portal serving vast amounts of users with low latency.",
+    },
   ];
 
   return (
@@ -55,14 +82,17 @@ const Projects = () => {
         <h2>Selected Work</h2>
         <div className="header-line"></div>
       </div>
-      
+
       <div className="featured-project-container">
         <div className="featured-badge">⭐ Featured Personal Project</div>
         <div className="glass-panel featured-project">
           <div className="featured-content">
             <h3 className="project-title">AI Insights Dashboard</h3>
             <p className="project-desc">
-              A high-performance UI-driven real estate & financial insights application. Uses a scalable Node + PostgreSQL backend and React with dynamic visualizations to provide predictive actions and reporting.
+              A high-performance UI-driven real estate & financial insights
+              application. Uses a scalable Node + PostgreSQL backend and React
+              with dynamic visualizations to provide predictive actions and
+              reporting.
             </p>
             <div className="project-stack">
               <span>React</span>
