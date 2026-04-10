@@ -8,6 +8,29 @@ const About = () => {
 
   useGSAP(
     () => {
+      gsap.from(".section-header h2", {
+        x: -50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".section-header",
+          start: "top 90%",
+        },
+      });
+
+      gsap.from(".header-line", {
+        scaleX: 0,
+        transformOrigin: "left center",
+        duration: 1.5,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: ".section-header",
+          start: "top 90%",
+        },
+      });
+
+      // 2. Card Scrub Timeline
       const cards = gsap.utils.toArray(".about-card");
       const scrollTimeline = gsap.timeline({
         scrollTrigger: {
@@ -18,19 +41,27 @@ const About = () => {
         },
       });
 
-      // 1. Cards come from below
+      // Cards come from below with a slight rotation and scale
       scrollTimeline
         .fromTo(
           cards,
-          { y: 100, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, stagger: 0.1, duration: 1, ease: "power2.out" },
+          { y: 100, autoAlpha: 0, scale: 0.9, rotationX: -10 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            scale: 1,
+            rotationX: 0,
+            stagger: 0.1,
+            duration: 1,
+            ease: "power2.out",
+          },
         )
-        // 2. Pause while scrolling through section
-        .to({}, { duration: 1.5 })
-        // 3. Cards go up and become visibility: hidden
+        .to({}, { duration: 1.5 }) // Pause in viewport
         .to(cards, {
           y: -100,
           autoAlpha: 0,
+          scale: 0.9,
+          rotationX: 10,
           stagger: 0.1,
           duration: 1,
           ease: "power2.in",
