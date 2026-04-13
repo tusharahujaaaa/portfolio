@@ -1,23 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import "./Skills.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { SKILL_CATEGORIES } from "../../constants";
 
 const Skills = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     ([entry]) => {
-  //       if (entry.isIntersecting) {
-  //         entry.target.classList.add('visible');
-  //       }
-  //     },
-  //     { threshold: 0.1 }
-  //   );
-  //   if (sectionRef.current) observer.observe(sectionRef.current);
-  //   return () => observer.disconnect();
-  // }, []);
   useGSAP(
     () => {
       const cards = gsap.utils.toArray(".skill-tag");
@@ -51,29 +40,6 @@ const Skills = () => {
     { scope: sectionRef },
   );
 
-  const skillCategories = [
-    {
-      title: "Frontend",
-      skills: ["Angular (v17+)", "React", "RxJS", "TypeScript", "JavaScript"],
-    },
-    {
-      title: "Backend",
-      skills: ["Node.js", "Express.js", "REST APIs", "JWT Auth"],
-    },
-    {
-      title: "Database",
-      skills: ["PostgreSQL", "Data Modeling", "Query Optimization"],
-    },
-    {
-      title: "Core",
-      skills: [
-        "System Design",
-        "Performance Optimization",
-        "Scalable Architecture",
-      ],
-    },
-  ];
-
   return (
     <section ref={sectionRef} className="skills-section" id="skills">
       <div className="section-header">
@@ -82,7 +48,7 @@ const Skills = () => {
       </div>
 
       <div className="skills-container">
-        {skillCategories.map((category, idx) => (
+        {SKILL_CATEGORIES.map((category, idx) => (
           <div className="skill-category" key={idx}>
             <h3 className="category-title">{category.title}</h3>
             <div className="tags-container">

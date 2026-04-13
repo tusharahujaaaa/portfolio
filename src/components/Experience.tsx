@@ -3,6 +3,7 @@ import "./Experience.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { EXPERIENCES } from "../../constants";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -31,21 +32,6 @@ const Experience = () => {
     { scope: sectionRef },
   );
 
-  const experiences = [
-    {
-      company: "NetProphets Cyberworks",
-      role: "Software Engineer",
-      period: "2021 — Present",
-      description:
-        "Engineered scalable full-stack enterprise solutions, leading architectural decisions and significantly reducing latency across multiple applications.",
-      highlights: [
-        "Optimized critical API endpoints leading to an 80% reduction in load time.",
-        "Spearheaded the migration of legacy system architecture to modern Node.js and scalable PostgreSQL structures.",
-        "Mentored junior engineers and streamlined the CI/CD pipeline, reducing deployment failures.",
-      ],
-    },
-  ];
-
   return (
     <section ref={sectionRef} className="experience-section" id="experience">
       <div className="section-header">
@@ -54,7 +40,7 @@ const Experience = () => {
       </div>
 
       <div className="timeline">
-        {experiences.map((exp, idx) => (
+        {EXPERIENCES.map((exp, idx) => (
           <div className="timeline-item" key={idx}>
             <div className="timeline-dot"></div>
             <div className="glass-panel timeline-content">

@@ -2,6 +2,7 @@ import { useRef } from "react";
 import "./About.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ABOUT_CARDS } from "../../constants";
 
 const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -77,31 +78,13 @@ const About = () => {
         <div className="header-line"></div>
       </div>
       <div className="about-grid">
-        <div className="glass-panel about-card">
-          <div className="card-icon">🧠</div>
-          <h3>Engineering Mindset</h3>
-          <p>
-            I don't just write code; I design systems. Every line is an
-            intentional decision to build scalable, maintainable, and efficient
-            architectures.
-          </p>
-        </div>
-        <div className="glass-panel about-card">
-          <div className="card-icon">🏢</div>
-          <h3>Enterprise Experience</h3>
-          <p>
-            Proven track record of building and optimizing large-scale
-            applications capable of handling massive traffic dynamically.
-          </p>
-        </div>
-        <div className="glass-panel about-card">
-          <div className="card-icon">⚡</div>
-          <h3>Full-Stack Thinking</h3>
-          <p>
-            From seamless frontend integrations to robust database schemas, I
-            stitch the entire stack together flawlessly.
-          </p>
-        </div>
+        {ABOUT_CARDS.map((card, idx) => (
+          <div className="glass-panel about-card" key={idx}>
+            <div className="card-icon">{card.icon}</div>
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

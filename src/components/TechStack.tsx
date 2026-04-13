@@ -3,6 +3,7 @@ import "./TechStack.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TECH_STACK } from "../../constants";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -36,15 +37,6 @@ const TechStack = () => {
     { scope: sectionRef },
   );
 
-  const techIcons = [
-    { name: "React", emoji: "⚛️" },
-    { name: "Node.js", emoji: "🟢" },
-    { name: "Angular", emoji: "🅰️" },
-    { name: "PostgreSQL", emoji: "🐘" },
-    { name: "TypeScript", emoji: "📘" },
-    { name: "RxJS", emoji: "🟣" },
-  ];
-
   return (
     <section ref={sectionRef} className="techstack-section" id="stack">
       <div className="section-header">
@@ -53,7 +45,7 @@ const TechStack = () => {
       </div>
 
       <div className="tech-grid">
-        {techIcons.map((tech, idx) => (
+        {TECH_STACK.map((tech, idx) => (
           <div className="tech-item glass-panel" key={idx}>
             <div className="tech-emoji">{tech.emoji}</div>
             <div className="tech-name">{tech.name}</div>

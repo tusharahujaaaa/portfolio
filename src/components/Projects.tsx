@@ -3,6 +3,7 @@ import "./Projects.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ENTERPRISE_PROJECTS } from "../../constants";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -57,25 +58,6 @@ const Projects = () => {
     { scope: sectionRef },
   );
 
-  const enterpriseProjects = [
-    {
-      title: "GovIntra",
-      desc: "Internal governance portal scaling up to handle thousands of concurrent operations securely.",
-    },
-    {
-      title: "CCL System",
-      desc: "Complex logistics and clearings system built with heavy full-stack optimizations.",
-    },
-    {
-      title: "Billing Tracker",
-      desc: "Financial ledger capable of precise arithmetic and high-level data aggregation.",
-    },
-    {
-      title: "Digicel SelfCare",
-      desc: "Telecom customer portal serving vast amounts of users with low latency.",
-    },
-  ];
-
   return (
     <section ref={sectionRef} className="projects-section" id="projects">
       <div className="section-header">
@@ -117,7 +99,7 @@ const Projects = () => {
 
       <h3 className="sub-heading">Enterprise Deployments</h3>
       <div className="projects-grid">
-        {enterpriseProjects.map((proj, idx) => (
+        {ENTERPRISE_PROJECTS.map((proj, idx) => (
           <div className="glass-panel project-card" key={idx}>
             <h4>{proj.title}</h4>
             <p>{proj.desc}</p>
