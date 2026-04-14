@@ -15,19 +15,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: none;
+  padding: 2rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  transform-style: preserve-3d;
 }
 
 .tech-item:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.2);
+  border-color: var(--accent-color, #646cff);
+  box-shadow: 0 10px 30px rgba(100, 108, 255, 0.2);
 }
 
 .tech-emoji {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
   filter: grayscale(0.5);
   transition: filter 0.3s ease, transform 0.3s ease;

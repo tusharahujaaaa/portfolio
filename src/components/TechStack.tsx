@@ -13,18 +13,18 @@ const TechStack = () => {
   useGSAP(
     () => {
       const triggerElem = sectionRef.current?.querySelector(".tech-grid");
-      const items = gsap.utils.toArray(".tech-item");
+      const items = gsap.utils.toArray(".tech-item") as HTMLElement[];
 
       if (triggerElem && items.length > 0) {
         gsap.fromTo(
           items,
-          { autoAlpha: 0, scale: 0.5, rotation: 15 },
+          { autoAlpha: 0, scale: 0.5, y: 50 },
           {
             autoAlpha: 1,
             scale: 1,
-            rotation: 0,
+            y: 0,
             duration: 0.8,
-            stagger: 0.1,
+            stagger: 0.05,
             ease: "back.out(1.7)",
             scrollTrigger: {
               trigger: triggerElem,
@@ -32,6 +32,32 @@ const TechStack = () => {
             },
           },
         );
+
+        // 3D Tilt Effect
+        items.forEach((item) => {
+          item.addEventListener("mousemove", (e) => {
+            const { left, top, width, height } = item.getBoundingClientRect();
+            const x = (e.clientX - left) / width - 0.5;
+            const y = (e.clientY - top) / height - 0.5;
+
+            gsap.to(item, {
+              rotationY: x * 30,
+              rotationX: -y * 30,
+              transformPerspective: 1000,
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          });
+
+          item.addEventListener("mouseleave", () => {
+            gsap.to(item, {
+              rotationY: 0,
+              rotationX: 0,
+              duration: 0.6,
+              ease: "elastic.out(1, 0.3)",
+            });
+          });
+        });
       }
     },
     { scope: sectionRef },

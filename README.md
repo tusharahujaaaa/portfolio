@@ -1,73 +1,102 @@
-# React + TypeScript + Vite
+# 🚀 Premium Developer Portfolio - Tushar Ahuja
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the source code of my professional portfolio. This project is a high-end, recruiter-impressive showcase built with **React**, **TypeScript**, and **GSAP**. It’s designed to tell a story through architecture, performance, and immersive UI/UX.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 👨‍💻 About Me
 
-## React Compiler
+**Tushar Ahuja**  
+*Software Engineer specializing in Scalable Full-Stack Systems & High-Performance Applications.*
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+I am a Software Engineer with a proven track record of building and optimizing large-scale enterprise applications. From leading architecture migrations in government systems to developing national-scale analytics platforms, I focus on performance, robust system design, and creating seamless user experiences.
 
-## Expanding the ESLint configuration
+- **Current Role**: Software Engineer at NetProphets Cyberworks.
+- **Expertise**: Angular (v17+), React, RxJS, Node.js, and System Architecture.
+- **Philosophy**: "I don’t just write code — I design systems."
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack & Tools
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Category | Technologies |
+| :--- | :--- |
+| **Frontend** | React, Angular, TypeScript, RxJS, JavaScript (ES6+) |
+| **Animation** | GSAP (ScrollTrigger, Flip, TextPlugin), CSS Transitions |
+| **UI/UX** | Vanilla CSS (Modern), Glassmorphism, Responsive Design |
+| **Backend** | Node.js, Express.js, REST APIs, JWT Authentication |
+| **Database** | PostgreSQL, Redis, Data Modeling |
+| **DevOps/Tools** | Vite, Git, CI/CD, Performance Optimization |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## ✨ Key Portfolio Features
+
+- **GSAP Powered Interactions**: 
+  - Staggered scroll entrance animations for all sections.
+  - 3D Tilt effects on project cards using real-time mouse tracking.
+  - Infinite floating micro-animations for visual depth.
+  - Magnetic button interactions for an interactive feel.
+- **Advanced Architecture**:
+  - Modular component structure.
+  - Centralized project data management (Constants pattern).
+  - High-performance asset loading and 60fps animations.
+- **Premium Showcase**: Featured projects with custom AI-generated mockups focusing on enterprise-level SaaS aesthetics.
+
+---
+
+## 🚀 Use This Template for Your Portfolio
+
+If you want to use this project as a base for your own developer portfolio, follow these steps:
+
+### 1. Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone <your-repo-link>
+cd portfolio-v2
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Customization Guide
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+This portfolio is designed to be easily configurable without digging deep into the layout logic.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+#### Update Personal Info & Projects
+Navigate to `constants/index.ts` and update the exported constants:
+- **`ENTERPRISE_PROJECTS`**: Add your projects, taglines, and descriptions. Set `isFeatured: true` for those you want in the top section.
+- **`EXPERIENCES`**: List your work history and key highlights.
+- **`SKILL_CATEGORIES`**: Update the skills grid.
+
+#### Update Images
+Replace the images in `public/images/projects/` with your own project screenshots or mockups. Ensure the slug in `constants/index.ts` matches the mapping in `Projects.tsx`.
+
+#### Style Customization
+- **Theme Colors**: Update the CSS variables in `src/index.css` to change the primary/secondary color schemes.
+- **Components**: Each section has its own `.css` file for granular control.
+
+### 3. Running Locally
+
+```bash
+npm run dev
 ```
+
+### 4. Build for Production
+
+```bash
+npm run build
+```
+
+---
+
+## 📬 Contact & Connect
+
+- **LinkedIn**: [Your LinkedIn Link]
+- **Email**: [Your Email]
+- **Portfolio**: [Live Demo Link]
+
+---
+
+*Built with ❤️ and GSAP by Tushar Ahuja.*
+

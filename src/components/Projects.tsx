@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Projects.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -9,105 +10,210 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const featuredProjects = ENTERPRISE_PROJECTS.filter((p) => p.isFeatured);
+  const otherProjects = ENTERPRISE_PROJECTS.filter((p) => !p.isFeatured);
+
+  const getProjectImage = (slug: string) => {
+    const images: Record<string, string> = {
+      govintranet: "images/projects/govin.png",
+      etaal: "images/projects/etaal.png",
+      "digicel-selfcare": "images/projects/digicel.png",
+      "dhoom-dhaam": "images/projects/dhoomdhaam.png",
+      // "billing-tracker": "images/projects/ccl.png", // Fallback for now or reuse one
+    };
+    return images[slug] || "images/image.png";
+  };
 
   useGSAP(
     () => {
-      // 1. Featured Project Reveal
-      const featuredContainer = sectionRef.current?.querySelector(
-        ".featured-project-container",
-      );
-      if (featuredContainer) {
-        gsap.fromTo(
-          featuredContainer,
-          { autoAlpha: 0, scale: 0.95, y: 30 },
-          {
-            autoAlpha: 1,
-            scale: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: featuredContainer,
-              start: "top 85%",
-            },
-          },
-        );
-      }
+      // 1. Scroll Entrance Animations
+      const cards = gsap.utils.toArray(".featured-card");
+      cards.forEach((card: any) => {
+        const content = card.querySelector(".featured-card-content");
+        const visual = card.querySelector(".featured-card-visual");
 
-      // 2. Project Grid cards stagger
-      const gridContainer = sectionRef.current?.querySelector(".projects-grid");
-      const cards = gsap.utils.toArray(".project-card");
-      if (gridContainer && cards.length) {
-        gsap.fromTo(
-          cards,
-          { autoAlpha: 0, y: 40 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: gridContainer,
-              start: "top 85%",
-            },
+        // Text slide in from left
+        gsap.from(content, {
+          x: -50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
           },
-        );
-      }
+        });
+
+        // Image reveal with scale
+        gsap.from(visual, {
+          scale: 0.9,
+          opacity: 0,
+          duration: 1,
+          delay: 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
+          },
+        });
+
+        // Floating animation for the mockup image
+        const mockup = card.querySelector(".project-mockup");
+        if (mockup) {
+          gsap.to(mockup, {
+            y: -10,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: Math.random() * 2, // Stagger the start of floating
+          });
+        }
+      });
+
+      // Section Header reveal
+      gsap.from(".section-header", {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        scrollTrigger: {
+          trigger: ".section-header",
+          start: "top 90%",
+        },
+      });
     },
     { scope: sectionRef },
   );
 
+  // Mouse Move Tilt Effect Handler
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const mockup = card.querySelector(".project-mockup") as HTMLElement;
+    if (!mockup) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = (y - centerY) / 20; // Subtle rotation
+    const rotateY = (centerX - x) / 20;
+
+    gsap.to(mockup, {
+      rotateX: rotateX,
+      rotateY: rotateY,
+      duration: 0.5,
+      ease: "power2.out",
+    });
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    const mockup = e.currentTarget.querySelector(
+      ".project-mockup",
+    ) as HTMLElement;
+    if (!mockup) return;
+
+    gsap.to(mockup, {
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.5,
+      ease: "power2.out",
+    });
+  };
+
   return (
     <section ref={sectionRef} className="projects-section" id="projects">
       <div className="section-header">
-        <h2>Selected Work</h2>
+        <h2>Featured Work</h2>
         <div className="header-line"></div>
       </div>
 
-      <div className="featured-project-container">
-        <div className="featured-badge">⭐ Featured Personal Project</div>
-        <div className="glass-panel featured-project">
-          <div className="featured-content">
-            <h3 className="project-title">AI Insights Dashboard</h3>
-            <p className="project-desc">
-              A high-performance UI-driven real estate & financial insights
-              application. Uses a scalable Node + PostgreSQL backend and React
-              with dynamic visualizations to provide predictive actions and
-              reporting.
-            </p>
-            <div className="project-stack">
-              <span>React</span>
-              <span>Node.js</span>
-              <span>PostgreSQL</span>
-              <span>OpenAI API</span>
+      <div className="featured-projects-list" ref={containerRef}>
+        {featuredProjects.map((proj, idx) => (
+          <div
+            key={idx}
+            className="featured-card"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="featured-card-content">
+              <span className="featured-badge">featured project</span>
+              <span className="featured-tagline">{proj.tagline}</span>
+              <h3>{proj.title}</h3>
+              <p className="featured-desc">{proj.desc}</p>
+
+              <div className="tech-chips">
+                {proj.stack.slice(0, 4).map((tech, i) => (
+                  <span key={i} className="tech-chip">
+                    {tech}
+                  </span>
+                ))}
+                {proj.stack.length > 4 && (
+                  <span className="tech-chip">
+                    +{proj.stack.length - 4} more
+                  </span>
+                )}
+              </div>
+
+              <Link to={`/projects/${proj.slug}`} className="cta-button">
+                View Case Study <span className="arrow">→</span>
+              </Link>
             </div>
-          </div>
-          <div className="featured-visual">
-            <div className="mock-ui">
-              <div className="mock-header"></div>
-              <div className="mock-chart"></div>
-              <div className="mock-blocks">
-                <div className="mock-block"></div>
-                <div className="mock-block"></div>
-                <div className="mock-block"></div>
+            <div className="featured-card-visual">
+              <div className="visual-glow"></div>
+              <div className="visual-inner">
+                <img
+                  src={getProjectImage(proj.slug)}
+                  alt={proj.title}
+                  className="project-mockup"
+                />
               </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
 
-      <h3 className="sub-heading">Enterprise Deployments</h3>
-      <div className="projects-grid">
-        {ENTERPRISE_PROJECTS.map((proj, idx) => (
-          <div className="glass-panel project-card" key={idx}>
-            <h4>{proj.title}</h4>
-            <p>{proj.desc}</p>
-            <div className="project-link">
-              View Specifics <span>→</span>
-            </div>
+      <div className="other-projects-section">
+        <div className="other-projects-header">
+          <h3>Other Notable Projects</h3>
+          <button
+            className="view-all-toggle"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? "Hide Projects" : "View All Projects"}
+            <span
+              style={{
+                transform: showAll ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.3s",
+              }}
+            >
+              ▼
+            </span>
+          </button>
+        </div>
+
+        {showAll && (
+          <div className="other-projects-grid">
+            {otherProjects.map((proj, idx) => (
+              <Link
+                to={`/projects/${proj.slug}`}
+                className="other-card"
+                key={idx}
+              >
+                <h4>{proj.title}</h4>
+                <p>{proj.tagline}</p>
+                <div className="other-card-link">
+                  Details <span className="arrow">→</span>
+                </div>
+              </Link>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </section>
   );

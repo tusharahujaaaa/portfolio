@@ -5,11 +5,15 @@
   --bg-secondary: rgba(15, 15, 20, 0.7);
   --text-primary: #ffffff;
   --text-secondary: #a0a0b0;
+  --accent-color: #646cff;
+  --accent-light: #8a91ff;
   --accent-blue: #0070f3;
   --accent-purple: #7928ca;
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
+  --gradient-premium: linear-gradient(135deg, #646cff 0%, #7928ca 100%);
 }
+
 
 * {
   box-sizing: border-box;

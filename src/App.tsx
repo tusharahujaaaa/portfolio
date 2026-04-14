@@ -1,21 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense, lazy } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Experience from "./components/Experience";
-import Projects from "./components/Projects";
-import Architecture from "./components/Architecture";
-import TechStack from "./components/TechStack";
-import Contact from "./components/Contact";
-import { ScrollTrigger, SplitText } from "gsap/all";
-import gsap from "gsap";
+import Home from "./pages/Home";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+const ProjectDetail = lazy(() => import("./components/ProjectDetail"));
 
 function App() {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [cursorHover, setCursorHover] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Scroll to top on route change
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -64,14 +62,12 @@ function App() {
       <div className="noise-overlay"></div>
 
       <main className="content-layer">
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Architecture />
-        <TechStack />
-        <Contact />
+        <Suspense fallback={<div className="loading-screen">Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+          </Routes>
+        </Suspense>
       </main>
     </div>
   );
