@@ -66,7 +66,13 @@ const Contact = () => {
                     style={{ width: "24px", height: "24px" }}
                   />
                 ) : (
-                  <IconComponent size={24} strokeWidth={1.5} color="#6366f1" />
+                  IconComponent && (
+                    <IconComponent
+                      size={24}
+                      strokeWidth={1.5}
+                      color="#6366f1"
+                    />
+                  )
                 )}
                 {link.name === "Email" ? "Email Me" : link.name}
               </a>
