@@ -25,7 +25,7 @@ export interface EnterpriseProject {
   isFeatured?: boolean;
 }
 
-import { Link, ShieldCheck, Sparkles, ChartCandlestick, type LucideIcon } from "lucide-react";
+import { Link, ShieldCheck, Sparkles, ChartCandlestick, Mail, type LucideIcon } from "lucide-react";
 
 
 export interface TechIcon {
@@ -40,6 +40,34 @@ export interface AboutCard {
   title: string;
   description: string;
 }
+
+export const CONTACT_INFO = {
+  email: "ahujav136@gmail.com",
+  phone: "+91 8218653943",
+  github: "https://github.com/tusharahujaaaa",
+  linkedin: "https://linkedin.com/in/ahuja-tushar",
+};
+
+export const SOCIAL_LINKS = [
+  {
+    name: "Email",
+    href: `mailto:${CONTACT_INFO.email}`,
+    icon: Mail,
+    isImg: false,
+  },
+  {
+    name: "GitHub",
+    href: CONTACT_INFO.github,
+    img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
+    isImg: true,
+  },
+  {
+    name: "LinkedIn",
+    href: CONTACT_INFO.linkedin,
+    img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg",
+    isImg: true,
+  },
+];
 
 export const ABOUT_CARDS: AboutCard[] = [
   {

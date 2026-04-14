@@ -3,6 +3,7 @@ import "./Contact.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SOCIAL_LINKS } from "../../constants";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -48,25 +49,29 @@ const Contact = () => {
         </p>
 
         <div className="contact-links">
-          <a href="mailto:tushar.ahuja@example.com" className="contact-btn">
-            <span className="icon">✉️</span> Email Me
-          </a>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noreferrer"
-            className="contact-btn"
-          >
-            <span className="icon">🐙</span> GitHub
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noreferrer"
-            className="contact-btn"
-          >
-            <span className="icon">💼</span> LinkedIn
-          </a>
+          {SOCIAL_LINKS.map((link, idx) => {
+            const IconComponent = link.icon;
+            return (
+              <a
+                key={idx}
+                href={link.href}
+                target={link.name !== "Email" ? "_blank" : undefined}
+                rel={link.name !== "Email" ? "noreferrer" : undefined}
+                className="contact-btn"
+              >
+                {link.isImg ? (
+                  <img
+                    src={link.img}
+                    alt={link.name}
+                    style={{ width: "24px", height: "24px" }}
+                  />
+                ) : (
+                  <IconComponent size={24} strokeWidth={1.5} color="#6366f1" />
+                )}
+                {link.name === "Email" ? "Email Me" : link.name}
+              </a>
+            );
+          })}
         </div>
       </div>
       <footer className="footer-content">
