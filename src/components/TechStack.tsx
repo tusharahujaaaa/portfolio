@@ -73,7 +73,12 @@ const TechStack = () => {
       <div className="tech-grid">
         {TECH_STACK.map((tech, idx) => (
           <div className="tech-item glass-panel" key={idx}>
-            <div className="tech-emoji">{tech.emoji}</div>
+            {tech.isImg ? (
+              <img className="tech-emoji" src={tech.img} alt={tech.name} />
+            ) : (
+              <span className="tech-emoji">{tech.img}</span>
+            )}
+
             <div className="tech-name">{tech.name}</div>
           </div>
         ))}

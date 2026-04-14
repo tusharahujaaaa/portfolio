@@ -27,7 +27,8 @@ export interface EnterpriseProject {
 
 export interface TechIcon {
   name: string;
-  emoji: string;
+  img: string;
+  isImg?: boolean;
 }
 
 export interface AboutCard {
@@ -347,22 +348,27 @@ export const ENTERPRISE_PROJECTS: EnterpriseProject[] = [
 ];
 
 export const TECH_STACK: TechIcon[] = [
-  { name: "Angular", emoji: "https://github.com/devicons/devicon/blob/master/icons/angular/angular-original.svg" },
-  { name: "React", emoji: "⚛️" },
-  { name: "TypeScript", emoji: "📘" },
-  { name: "JavaScript", emoji: "🟨" },
-  { name: "RxJS", emoji: "🟣" },
-  { name: "Node.js", emoji: "🟢" },
-  { name: "Express.js", emoji: "🚀" },
-  { name: "PostgreSQL", emoji: "🐘" },
-  { name: "REST APIs", emoji: "🔗" },
-  { name: "JWT Auth", emoji: "🔐" },
-  { name: "SSR (Angular)", emoji: "🌐" },
-  { name: "Highcharts", emoji: "📊" },
-  { name: "Chart.js", emoji: "📈" },
-  { name: "Firebase", emoji: "🔥" },
-  { name: "Docker", emoji: "🐳" },
-  { name: "CI/CD (Jenkins)", emoji: "⚙️" },
-  { name: "GSAP", emoji: "✨" },
+  { name: "Angular", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg: true },
+  { name: "React", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", isImg: true },
+  { name: "TypeScript", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg", isImg: true },
+  { name: "JavaScript", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg", isImg: true },
+  { name: "RxJS", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rxjs/rxjs-original.svg", isImg: true },
+  { name: "Node.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg", isImg: true },
+  { name: "Express.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg", isImg: true },
+  { name: "PostgreSQL", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", isImg: true },
+  // { name: "REST APIs", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
+  // { name: "JWT Auth", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
+  // { name: "SSR (Angular)", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
+  // { name: "Highcharts", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
+  // { name: "Chart.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/chartjs/chartjs-original.svg", isImg:true },
+  { name: "Firebase", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg", isImg: true },
+  { name: "Docker", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", isImg: true },
+  { name: "CI/CD (Jenkins)", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", isImg: true },
+  // { name: "GSAP", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
+  { name: "GSAP", img: "✨", isImg: false },
+  { name: "REST APIs", img: "🔗", isImg: false },
+  { name: "JWT Auth", img: "🔐", isImg: false },
+  { name: "SSR (Angular)", img: "🌐", isImg: false },
+  { name: "Highcharts", img: "📊", isImg: false },
 ];
 
