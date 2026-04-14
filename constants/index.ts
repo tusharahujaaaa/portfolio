@@ -25,10 +25,14 @@ export interface EnterpriseProject {
   isFeatured?: boolean;
 }
 
+import { Link, ShieldCheck, Sparkles, ChartCandlestick, type LucideIcon } from "lucide-react";
+
+
 export interface TechIcon {
   name: string;
   img: string;
   isImg?: boolean;
+  icon?: LucideIcon;
 }
 
 export interface AboutCard {
@@ -94,91 +98,6 @@ export const EXPERIENCES: Experience[] = [
   },
 ];
 
-
-// export const ENTERPRISE_PROJECTS: EnterpriseProject[] = [
-//   {
-//     slug: "govintranet-v2",
-//     title: "GovIntranet",
-//     tagline: "Centralized Digital Workspace for Government Ministries",
-//     desc: "Enterprise intranet platform developed for Ministry of Electronics and Information Technology (MeitY).",
-//     overview: "A monolithic to micro-frontend transformation of the official government intranet, serving thousands of employees daily. The platform integrates communication, task management, and administrative workflows into a single secure ecosystem.",
-//     role: "Led the frontend architecture migration and implemented the meeting lifecycle management system.",
-//     features: [
-//       "End-to-end Meeting Lifecycle Management (Scheduling to auto-generated MoM)",
-//       "Secure SSO Integration with NIC BharatVC",
-//       "Role-Based Access Control (RBAC) for diverse ministry hierarchies",
-//       "Real-time Correspondence Tracking and Document Management"
-//     ],
-//     stack: ["Angular 17", "RxJS", "Node.js", "Directus CMS", "PostgreSQL"],
-//     impact: "Streamlined administrative workflows for 5000+ government officials, reducing paper-based processing by 60%.",
-//     confidential: true
-//   },
-//   {
-//     slug: "etaal-v2",
-//     title: "e-Taal",
-//     tagline: "National e-Services Transaction Analysis & Analytics",
-//     desc: "National-scale analytics platform visualizing millions of digital transactions across Indian ministries.",
-//     overview: "e-Taal is a high-visibility project under the National e-Governance Plan. Version 2.0 focuses on real-time data visualization and comparative analytics of services provided by central and state governments.",
-//     role: "Frontend Lead responsible for interactive dashboard architecture and Highcharts integration.",
-//     features: [
-//       "Dynamic data visualization with drill-down capabilities",
-//       "Real-time transaction mapping across 4000+ e-services",
-//       "Comparative reporting engine with multi-format exports (PDF, Excel)",
-//       "Performance-optimized rendering of massive datasets"
-//     ],
-//     stack: ["Angular", "Highcharts", "RxJS", "REST APIs", "Bootstrap"],
-//     impact: "Provided critical insights to policy makers on digital service adoption, tracking over 5 billion transactions annually.",
-//     confidential: true
-//   },
-//   {
-//     slug: "digicel-selfcare",
-//     title: "Digicel SelfCare",
-//     tagline: "International Telecom Customer Portal",
-//     desc: "Production-grade telecom portal enabling real-time account management across 20+ regions.",
-//     overview: "A multi-regional self-care platform for Digicel Group, allowing users to manage their mobile accounts, pay bills, and purchase plans seamlessly.",
-//     role: "Full-stack Developer focused on internationalization (i18n) and payment gateway integration.",
-//     features: [
-//       "Real-time usage tracking and balance top-ups",
-//       "Multi-currency and multi-language support (English, French, Spanish)",
-//       "Seamless integration with regional payment gateways",
-//       "Automated invoice generation and history tracking"
-//     ],
-//     stack: ["Angular", "Internationalization (i18n)"],
-//     impact: "Enhanced customer experience for millions of users across the Caribbean and Pacific, increasing digital transaction volume by 40%."
-//   },
-//   {
-//     slug: "ccl-platform",
-//     title: "CCL (Comm Layer)",
-//     tagline: "Omnichannel Enterprise Communication Layer",
-//     desc: "Centralized platform enabling multi-channel messaging (SMS, WhatsApp, RCS, Voice).",
-//     overview: "The Centralized Communication Layer (CCL) provides enterprise clients with a unified API to manage customer communications across various channels.",
-//     role: "Designed the vendor onboarding flow and template management system.",
-//     features: [
-//       "Rule-based message routing across multiple vendors",
-//       "Aboriginal template approval workflow",
-//       "Detailed analytics on delivery rates and costs",
-//       "WhatsApp & RCS interactive message support"
-//     ],
-//     stack: ["Angular", "RxJS"],
-//     impact: "Reduced communication latency by 30% and improved vendor management efficiency for enterprise-level clients."
-//   },
-//   {
-//     slug: "dhoom-dhaam",
-//     title: "Dhoom Dhaam",
-//     tagline: "Immersive Wedding Planning Experience",
-//     desc: "Luxury destination wedding platform with high-end animations and planning flows.",
-//     overview: "A premium consumer-facing platform dedicated to high-end destination weddings, focusing on visual storytelling and interactive user experiences.",
-//     role: "Lead Frontend Developer responsible for GSAP animations and the interactive planning flow.",
-//     features: [
-//       "Immersive UI with liquid transitions and GSAP parallax",
-//       "Interactive venue exploration and planning wizard",
-//       "Dynamic guest list and budget tracking system",
-//       "Mobile-first responsive design for on-the-go planning"
-//     ],
-//     stack: ["React", "GSAP", "Tailwind CSS", "Framer Motion"],
-//     impact: "Achieved a 50% increase in user engagement time through premium interactive elements."
-//   }
-// ];
 export const ENTERPRISE_PROJECTS: EnterpriseProject[] = [
   {
     slug: "govintranet",
@@ -242,7 +161,6 @@ export const ENTERPRISE_PROJECTS: EnterpriseProject[] = [
     stack: ["Angular", "RxJS", "REST APIs", "Bootstrap"],
     impact:
       "Improved user experience for telecom customers across multiple regions.",
-    isFeatured: true,
   },
 
   {
@@ -356,19 +274,14 @@ export const TECH_STACK: TechIcon[] = [
   { name: "Node.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg", isImg: true },
   { name: "Express.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg", isImg: true },
   { name: "PostgreSQL", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", isImg: true },
-  // { name: "REST APIs", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
-  // { name: "JWT Auth", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
-  // { name: "SSR (Angular)", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
-  // { name: "Highcharts", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
-  // { name: "Chart.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/chartjs/chartjs-original.svg", isImg:true },
+  { name: "REST APIs", img: "", isImg: false, icon: Link },
+  { name: "JWT Auth", img: "", isImg: false, icon: ShieldCheck },
+  { name: "SSR (Angular)", img: "", isImg: false, icon: Sparkles },
+  { name: "Highcharts", img: "", isImg: false, icon: ChartCandlestick },
+  { name: "Chart.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/chartjs/chartjs-original.svg", isImg: true },
   { name: "Firebase", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg", isImg: true },
   { name: "Docker", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", isImg: true },
   { name: "CI/CD (Jenkins)", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", isImg: true },
-  // { name: "GSAP", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg", isImg:true },
-  { name: "GSAP", img: "✨", isImg: false },
-  { name: "REST APIs", img: "🔗", isImg: false },
-  { name: "JWT Auth", img: "🔐", isImg: false },
-  { name: "SSR (Angular)", img: "🌐", isImg: false },
-  { name: "Highcharts", img: "📊", isImg: false },
+  { name: "GSAP", img: "", isImg: false, icon: Sparkles },
 ];
 

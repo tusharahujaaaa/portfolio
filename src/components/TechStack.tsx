@@ -71,17 +71,28 @@ const TechStack = () => {
       </div>
 
       <div className="tech-grid">
-        {TECH_STACK.map((tech, idx) => (
-          <div className="tech-item glass-panel" key={idx}>
-            {tech.isImg ? (
-              <img className="tech-emoji" src={tech.img} alt={tech.name} />
-            ) : (
-              <span className="tech-emoji">{tech.img}</span>
-            )}
+        {TECH_STACK.map((tech, idx) => {
+          const IconComponent = tech.icon;
 
-            <div className="tech-name">{tech.name}</div>
-          </div>
-        ))}
+          return (
+            <div className="tech-item glass-panel" key={idx}>
+              {tech.isImg ? (
+                <img className="tech-emoji" src={tech.img} alt={tech.name} />
+              ) : (
+                <div className="tech-emoji">
+                  {IconComponent && (
+                    <IconComponent
+                      size={42}
+                      strokeWidth={1.5}
+                      color="#6366f1"
+                    />
+                  )}
+                </div>
+              )}
+              <div className="tech-name">{tech.name}</div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
