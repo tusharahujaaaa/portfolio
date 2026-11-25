@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tushar Ahuja Portfolio</title>
 <meta name="description" content="Tushar Ahuja is a software engineer in Noida who builds fast Angular frontends. Open to freelance projects.">
+<link rel="canonical" href="https://tushar-ahuja.ahujav136.workers.dev/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tushar Ahuja">
+<meta property="og:title" content="Tushar Ahuja | Frontend Engineer, Angular">
+<meta property="og:description" content="I build fast Angular frontends: upgrades, performance work, dashboards and product interfaces. Open to freelance projects.">
+<meta property="og:url" content="https://tushar-ahuja.ahujav136.workers.dev/">
+<meta property="og:image" content="https://tushar-ahuja.ahujav136.workers.dev/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tushar Ahuja | Frontend Engineer, Angular">
+<meta name="twitter:description" content="I build fast Angular frontends. Open to freelance projects.">
+<meta name="twitter:image" content="https://tushar-ahuja.ahujav136.workers.dev/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500..800&family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
@@ -394,7 +407,7 @@ footer { padding: 120px 0 0; overflow: hidden; }
   <div class="tier rv">
     <h3><b>Daily</b> / core work</h3>
     <div class="srows">
-      <div class="srow"><span>Angular</span><small>v13 to v21</small></div>
+      <div class="srow"><span>Angular</span><small>13 to 21</small></div>
       <div class="srow"><span>TypeScript</span><small>and JavaScript ES6+</small></div>
       <div class="srow"><span>RxJS</span><small>forkJoin, race, shareReplay</small></div>
       <div class="srow"><span>Signals and standalone components</span><small>modern Angular state and structure</small></div>
@@ -482,8 +495,8 @@ footer { padding: 120px 0 0; overflow: hidden; }
 </footer>
 
 <script>
-/* Set these before you deploy. endpoint: a Formspree or Web3Forms URL that accepts a JSON POST. */
-const CONFIG = { endpoint: "https://formspree.io/f/mjywpybg", email: "tushar.ahuja.1@gmail.com", github: "https://github.com/tusharahujaaaa", linkedin: "https://www.linkedin.com/in/ahuja-tushar" };
+/* Set these before you deploy. Messages go through EmailJS when serviceId, templateId and publicKey are filled in; otherwise they fall back to the endpoint below. */
+const CONFIG = { emailjs: { serviceId: "service_13f4bjh", templateId: "template_ni99vck", publicKey: "Ua3jcPsfGa58RYDbI" }, endpoint: "https://formspree.io/f/mjywpybg", email: "tushar.ahuja.1@gmail.com", github: "https://github.com/tusharahujaaaa", linkedin: "https://www.linkedin.com/in/ahuja-tushar" };
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -722,7 +735,14 @@ form.addEventListener("submit", async ev => {
   draft = "Name: " + d.name + "\nEmail: " + d.email + "\nCompany: " + (d.org || "-") + "\nSubject: " + d.subject + "\n\n" + d.msg;
   const btn = $("#send"); btn.disabled = true; btn.textContent = "Sending";
   let sent = false;
-  if (CONFIG.endpoint) {
+  const ej = CONFIG.emailjs || {};
+  const useEmailJS = !!(ej.serviceId && ej.templateId && ej.publicKey);
+  if (useEmailJS) {
+    try {
+      const r = await fetch("https://api.emailjs.com/api/v1.0/email/send", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ service_id: ej.serviceId, template_id: ej.templateId, user_id: ej.publicKey, template_params: { from_name: d.name, from_email: d.email, company: d.org || "-", subject: d.subject, message: d.msg } }) });
+      sent = r.ok;
+    } catch (e) { sent = false; }
+  } else if (CONFIG.endpoint) {
     try {
       const r = await fetch(CONFIG.endpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify({ _subject: d.subject + " (from " + d.name + ")", name: d.name, email: d.email, company: d.org, subject: d.subject, message: d.msg }) });
       sent = r.ok;
@@ -733,7 +753,7 @@ form.addEventListener("submit", async ev => {
     statusEl.textContent = "Thanks, " + d.name.trim().split(" ")[0] + ". Your message has been sent and I will reply to " + d.email.trim() + ".";
     form.reset();
   } else {
-    $("#fallback-text").textContent = (CONFIG.endpoint ? "The message did not go through. " : "This page cannot deliver messages yet. ") + "Copy it and send it to me on LinkedIn" + (CONFIG.email ? " or at " + CONFIG.email : "") + ".";
+    $("#fallback-text").textContent = ((useEmailJS || CONFIG.endpoint) ? "The message did not go through. " : "This page cannot deliver messages yet. ") + "Copy it and send it to me on LinkedIn" + (CONFIG.email ? " or at " + CONFIG.email : "") + ".";
     fallback.hidden = false;
   }
 });
