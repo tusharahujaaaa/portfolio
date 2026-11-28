@@ -9,17 +9,21 @@
   --ease: cubic-bezier(.2,.8,.2,1); color-scheme: dark;
 }
 * { box-sizing: border-box; margin: 0; }
-html { background: var(--bg); }
+html { background: var(--bg); --k: 1; }
+/* very large displays: scale layout widths, body text and the 3D cards / ring up (--k) */
+@media (min-width: 1700px) { html { --k: 1.2; } }
+@media (min-width: 2200px) { html { --k: 1.5; } }
+@media (min-width: 3000px) { html { --k: 2; } }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
-body { background: transparent; color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+body { background: transparent; color: var(--ink); font-family: var(--body); font-size: calc(17px * var(--k)); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
 html { scroll-padding-top: 90px; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
 ::selection { background: var(--acc); color: #fff; }
-.wrap { width: min(1240px, 100% - 40px); margin-inline: auto; }
+.wrap { width: min(calc(1240px * var(--k)), 100% - 40px); margin-inline: auto; }
 main, footer { position: relative; z-index: 2; }
 
 #gl { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
@@ -88,7 +92,7 @@ h2.title sup { font-family: var(--mono); font-weight: 500; font-size: 14px; lett
 /* ---------- WORK (flat base) ---------- */
 .work { padding: 130px 0 40px; }
 .work-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 54px; }
-.work-stage { width: min(1240px, 100% - 40px); margin-inline: auto; display: grid; gap: 24px; }
+.work-stage { width: min(calc(1240px * var(--k)), 100% - 40px); margin-inline: auto; display: grid; gap: 24px; }
 .work-hud { display: none; }
 .card { --fs: 16px; font-size: var(--fs); line-height: 1.5; display: grid; grid-template-columns: 1.1fr .9fr; gap: 2.2em; padding: 2.3em; border-radius: 2.1em; border: 1px solid var(--cline); color: var(--cink); background: var(--cbg); overflow: hidden; box-shadow: 0 30px 80px -30px rgba(0,0,0,.85); }
 .c1 { --cbg: radial-gradient(90% 80% at 100% 0%, rgba(255,90,31,.3), transparent 60%), #151311; --cink: #F4F1EC; --cmuted: #A9A49B; --cline: rgba(244,241,236,.16); }
@@ -139,7 +143,7 @@ h2.title sup { font-family: var(--mono); font-weight: 500; font-size: 14px; lett
 /* ---------- SKILLS (flat base) ---------- */
 .skills { padding: 130px 0 0; }
 .skills-pin .sec-head { margin-bottom: 30px; }
-.ring-rot { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: min(1240px, 100% - 40px); margin-inline: auto; }
+.ring-rot { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: min(calc(1240px * var(--k)), 100% - 40px); margin-inline: auto; }
 .face { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 22px 24px; border: 1px solid var(--line); border-radius: 20px; background: rgba(12,10,9,.84); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); text-shadow: 0 2px 14px rgba(0,0,0,.6); font-family: var(--display); font-weight: 700; font-size: clamp(26px, 2.8vw, 40px); letter-spacing: -.04em; line-height: 1.05; }
 .face i { font-family: var(--mono); font-style: normal; font-weight: 500; font-size: 12px; letter-spacing: 0; color: var(--acc); }
 .face small { font-family: var(--body); font-weight: 400; font-size: 14px; letter-spacing: 0; color: #B9B3A9; }
@@ -220,12 +224,12 @@ footer { padding: 120px 0 0; overflow: hidden; background: linear-gradient(0deg,
 
 /* ================= 3D MODE (desktop, motion allowed) ================= */
 [data-mode="3d"] .work { position: relative; height: 100vh; height: 100svh; padding: 0; overflow: hidden; }
-[data-mode="3d"] .work-head { position: absolute; z-index: 5; top: 84px; left: 50%; transform: translateX(-50%); width: min(1180px, 92vw); margin: 0; align-items: flex-end; pointer-events: none; }
+[data-mode="3d"] .work-head { position: absolute; z-index: 5; top: 84px; left: 50%; transform: translateX(-50%); width: min(calc(1180px * var(--k)), 92vw); margin: 0; align-items: flex-end; pointer-events: none; }
 [data-mode="3d"] .work-head .title { font-size: clamp(34px, 5vw, 64px); }
 [data-mode="3d"] .work-head .note { font-size: 14px; max-width: 46ch; }
 [data-mode="3d"] .work-stage { position: absolute; inset: 168px 0 66px; width: auto; margin: 0; display: block; perspective: 1500px; perspective-origin: 50% 40%; }
-[data-mode="3d"] .card { position: absolute; left: 50%; top: 50%; width: min(1180px, 92vw); height: min(100%, 640px); will-change: transform, opacity; backface-visibility: hidden; }
-[data-mode="3d"] .work-hud { display: flex; position: absolute; z-index: 6; left: 50%; bottom: 20px; transform: translateX(-50%); width: min(1180px, 92vw); align-items: center; gap: 18px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+[data-mode="3d"] .card { position: absolute; left: 50%; top: 50%; width: min(calc(1180px * var(--k)), 92vw); height: min(100%, calc(640px * var(--k))); will-change: transform, opacity; backface-visibility: hidden; }
+[data-mode="3d"] .work-hud { display: flex; position: absolute; z-index: 6; left: 50%; bottom: 20px; transform: translateX(-50%); width: min(calc(1180px * var(--k)), 92vw); align-items: center; gap: 18px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
 .work-hud b { color: var(--ink); font-weight: 500; font-size: 15px; }
 .wbar { flex: 1; height: 2px; background: var(--line); position: relative; overflow: hidden; border-radius: 2px; }
 .wbar i { position: absolute; inset: 0; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--acc), var(--amber)); }
@@ -233,10 +237,10 @@ footer { padding: 120px 0 0; overflow: hidden; background: linear-gradient(0deg,
 
 [data-mode="3d"] .skills { padding: 0; }
 [data-mode="3d"] .skills-pin { height: 100vh; height: 100svh; padding-top: 96px; display: flex; flex-direction: column; overflow: hidden; }
-[data-mode="3d"] .skills-pin .sec-head { margin-bottom: 0; width: min(1180px, 92vw); }
+[data-mode="3d"] .skills-pin .sec-head { margin-bottom: 0; width: min(calc(1180px * var(--k)), 92vw); }
 [data-mode="3d"] .ring-wrap { flex: 1; position: relative; perspective: 1700px; perspective-origin: 50% 48%; }
 [data-mode="3d"] .ring-rot { position: absolute; left: 50%; top: 52%; width: 0; height: 0; display: block; border: 0; transform-style: preserve-3d; will-change: transform; }
-[data-mode="3d"] .face { position: absolute; width: 400px; height: 190px; left: -200px; top: -95px; padding: 26px 30px; border-radius: 26px; border: 1px solid rgba(255,176,74,.28); justify-content: flex-end; font-size: 40px; backface-visibility: hidden; background: linear-gradient(160deg, #241B15, #0F0D0B); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 30px 80px -30px rgba(0,0,0,.9); }
+[data-mode="3d"] .face { position: absolute; width: calc(400px * var(--k)); height: calc(190px * var(--k)); left: calc(-200px * var(--k)); top: calc(-95px * var(--k)); padding: calc(26px * var(--k)) calc(30px * var(--k)); border-radius: 26px; border: 1px solid rgba(255,176,74,.28); justify-content: flex-end; font-size: calc(40px * var(--k)); backface-visibility: hidden; background: linear-gradient(160deg, #241B15, #0F0D0B); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 30px 80px -30px rgba(0,0,0,.9); }
 [data-mode="3d"] .face i { position: absolute; top: 22px; left: 30px; }
 [data-mode="3d"] .face::after { content: ""; position: absolute; right: 26px; top: 26px; width: 12px; height: 12px; border-radius: 50%; background: linear-gradient(90deg, var(--acc), var(--amber)); box-shadow: 0 0 22px var(--acc); }
 [data-mode="3d"] .skills-more { padding-top: 40px; }
@@ -272,3 +276,72 @@ footer { padding: 120px 0 0; overflow: hidden; background: linear-gradient(0deg,
 /* title words with the gradient: paint the gradient on each flipped character so it never disappears */
 .title .grad { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: transparent; }
 .title .grad .ch { background: linear-gradient(100deg, var(--amber), var(--acc) 85%); -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: .04em; }
+
+/* ===================== responsive hardening ===================== */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+.side a.big-link, .note, .sub, .card p, .card li, dl.facts dd { overflow-wrap: anywhere; }
+.card > *, .ct, .ct > div, .panel, .panel > *, .vb, .rowt { min-width: 0; }
+.tile, .tw, .face { min-width: 0; }
+
+@media (max-width: 1024px) {
+  .card h3 { font-size: clamp(30px, 6.2vw, 52px); overflow-wrap: anywhere; hyphens: auto; }
+  .stat b { font-size: clamp(40px, 9vw, 72px); overflow-wrap: anywhere; }
+  .duo .stat b { font-size: clamp(30px, 6vw, 48px); }
+  .tier > h3 { padding-top: 0; }
+  .side { padding: 20px; }
+  .sec-head { margin-bottom: 36px; gap: 16px; }
+}
+
+@media (max-width: 560px) {
+  .nav { top: 10px; width: calc(100% - 20px); padding: 6px 6px 6px 16px; }
+  .brand { font-size: 16px; white-space: nowrap; }
+  .nav .pill { padding: 10px 16px; font-size: 14px; }
+  .hero { padding-top: 104px; }
+  .status { font-size: 11.5px; }
+  .sub { font-size: 16px; }
+  .cta { gap: 8px; }
+  .cta .pill { padding: 11px 16px; font-size: 14px; }
+  .badge { display: none; }
+  .card { padding: 1.4em; border-radius: 1.6em; }
+  .card h3 { font-size: clamp(24px, 8.2vw, 40px); }
+  .stat b { font-size: clamp(34px, 12vw, 56px); }
+  .duo { grid-template-columns: 1fr; gap: 1.1em; }
+  .duo .stat b { font-size: clamp(32px, 11vw, 48px); }
+  .panel { padding: 1.3em; }
+  .chips span { font-size: .8em; }
+  .cloud span { font-size: 17px; padding: 9px 16px; }
+  .tile { min-height: 0; padding: 22px; }
+  .tile h3 { font-size: 24px; }
+  h2.title { font-size: clamp(40px, 13vw, 64px); }
+  .lit { font-size: clamp(24px, 7.4vw, 36px); }
+  .stats { gap: 22px 14px; }
+  .stats b { font-size: clamp(38px, 12vw, 56px); }
+  .side a.big-link { font-size: clamp(18px, 5.6vw, 24px); }
+  form { padding: 18px; }
+  .foot { flex-wrap: wrap; gap: 6px 16px; font-size: 12px; }
+  footer { padding-top: 80px; }
+}
+
+@media (max-width: 360px) {
+  .brand { font-size: 15px; }
+  .nav .pill { padding: 9px 13px; }
+  .cta .pill { padding: 10px 13px; font-size: 13.5px; }
+  dl.facts { grid-template-columns: 1fr; }
+  dl.facts dt { border-bottom: 0; padding-bottom: 0; }
+}
+
+/* short landscape phones / small laptops use the flat layout: keep the hero from overflowing */
+@media (max-height: 619px) and (orientation: landscape) {
+  .hero { padding-top: 96px; min-height: 0; }
+  h1 { font-size: clamp(34px, 7vw, 64px); }
+}
+
+.cloud span { max-width: 100%; }
+@media (max-width: 360px) { .cloud span { font-size: 15px; padding: 8px 13px; } }
+
+/* service tiles: keep the big outlined number in its own strip so text never runs over it */
+.tile { padding-bottom: 76px; }
+@media (max-width: 560px) {
+  .tile { padding-bottom: 66px; }
+  .tile::after { font-size: 56px; right: 18px; bottom: 8px; }
+}

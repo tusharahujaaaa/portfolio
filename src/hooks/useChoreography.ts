@@ -86,9 +86,11 @@ export function useChoreography() {
       const n = cards.length;
       link('hero', 'work', workEl, 'top 90%', 'top 10%');
 
+      /* --k scales the layout up on very large screens (see global.css) */
+      const k = parseFloat(getComputedStyle(root).getPropertyValue('--k')) || 1;
       const fitCards = () => cards.forEach(c => {
-        let fs = 16; c.style.setProperty('--fs', fs + 'px');
-        while (c.scrollHeight > c.clientHeight + 1 && fs > 10.5) { fs -= 0.5; c.style.setProperty('--fs', fs + 'px'); }
+        let fs = 16 * k; c.style.setProperty('--fs', fs + 'px');
+        while (c.scrollHeight > c.clientHeight + 1 && fs > 10.5 * k) { fs -= 0.5; c.style.setProperty('--fs', fs + 'px'); }
       });
 
       if (is3d) {
@@ -147,7 +149,7 @@ export function useChoreography() {
       link('work', 'skills', '.skills-pin', 'top 95%', 'top 25%');
       const faces = $$('.face'), ringRot = $('#ringrot')!;
       if (is3d) {
-        const N = faces.length, step = 360 / N, Rr = 200 / Math.tan(Math.PI / N);
+        const N = faces.length, step = 360 / N, Rr = 200 * k / Math.tan(Math.PI / N);
         faces.forEach((f, i) => { f.style.transform = `rotateY(${i * step}deg) translateZ(${Rr}px)`; });
         const spin = (deg: number) => {
           ringRot.style.transform = `translateZ(${-Rr}px) rotateY(${deg}deg)`;
